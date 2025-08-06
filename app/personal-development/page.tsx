@@ -82,7 +82,7 @@ export default function PersonalDevelopmentPage() {
           <p style={{fontSize: '1.5rem'}}>
             I came into this internship with ... 
           </p>
-          <li> A general curiosity about HR, specficially when it comes to developing community outreach programs.
+          <li> A general curiosity about HR, specifically when it comes to developing community outreach programs.
           </li>
           <li> A set idea of the type of job I wanted -- working behind the scenes, only small scaled projects, and set deadlines. </li>
           <li> A clear set of moral values that I used as directing factor when considering what industry and field I work toward, but not a specfic role or idea of what my day to day would look like. </li>
