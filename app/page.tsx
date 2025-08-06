@@ -1,95 +1,238 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client';
+
+import { motion, useAnimation } from 'framer-motion';
+import { useEffect} from 'react';
+import './globals.css';
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const controls = useAnimation();
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+  useEffect(() => {
+    controls.start({
+      scale: [1, 1.14, 1.08, 1.12, 1, 1],
+      transition: {
+        duration: 1.0,
+        times: [0, 0.08, 0.2, 0.32, 0.55, 1],
+        repeat: Infinity,
+        ease: 'easeInOut',
+      },
+    });
+  }, [controls]);
+
+    const arteries = [
+    {
+      id: "hr-path",
+      d: "M50 50 C65 60, 85 80, 100 100",
+      stroke: "#9D2236",
+      label: "HR",
+      href: "/hr",
+      labelPos: { x: 88, y: 85 },
+    },
+    {
+      id: "it-path",
+      d: "M50 50 C35 60, 15 80, 0 100",
+      stroke: "#BE1931",
+      label: "IT",
+      href: "/it",
+      labelPos: { x: 12, y: 85 },
+    },
+    {
+      id: "personal-path",
+      d: "M50 50 C65 40, 85 20, 100 0",
+      stroke: "#C45057",
+      label: "Personal Development",
+      href: "/personal-development",
+      labelPos: { x: 70, y: 15 },
+    },
+    {
+      id: "contact-path",
+      d: "M50 50 C35 40, 15 20, 0 0",
+      stroke: "#F9AD81",
+      label: "Contact",
+      href: "/contact",
+      labelPos: { x: 10, y: 25 },
+    },
+  ];
+
+
+  return (
+    <main
+      style={{
+        backgroundColor: '#302f32',
+        height: '100vh',
+        width: '100vw',
+        position: 'relative',
+       overflow: 'hidden',
+       padding: '2rem',
+      }}
+    >
+      {/* Arteries & Labels */}
+          <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 100 100"
+        width="100%"
+        height="100%"
+        preserveAspectRatio="none"
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          pointerEvents: 'none',
+          zIndex: 1,
+        }}
+      >
+       {arteries.map(({ d, stroke, label, href, id }) => {
+  const reversedId = `${id}-reversed`;
+
+  return (
+    <motion.g
+      key={id}
+      initial="initial"
+      whileHover="hover"
+      style={{ pointerEvents: 'auto', cursor: 'pointer' }}
+      onClick={() => window.location.href = href}
+      onMouseEnter={() => {
+        const circle = document.getElementById(`${id}-dot`);
+        if (circle) circle.classList.add('animate-dot');
+      }}
+      onMouseLeave={() => {
+        const circle = document.getElementById(`${id}-dot`);
+        if (circle) circle.classList.remove('animate-dot');
+      }}
+    >
+      <motion.path
+        id={id}
+        d={d}
+        stroke={stroke}
+        strokeWidth={2}
+        fill="none"
+        initial={{ pathLength: 0 }}
+        animate={{ pathLength: 1 }}
+        transition={{ duration: 1.2, ease: 'easeInOut' }}
+      />
+
+      {/* Invisible reversed path for upright text where needed */}
+      {id === 'it-path' && (
+          <path
+            id={reversedId}
+            d="M0 100 C15 80, 35 60, 50 50" // reversed IT path
+            fill="none"
+            stroke="transparent"
+          />
+        )}
+
+        {id === 'contact-path' && (
+          <path
+            id={reversedId}
+            d="M0 0 C15 20, 35 40, 50 50" // reversed Contact path
+            fill="none"
+            stroke="transparent"
+          />
+        )}
+      {/* Dot that animates on hover */}
+      <circle
+        id={`${id}-dot`}
+        r="1"
+        fill="#fff"
+        style={{
+          offsetPath: `path("${d}")`,
+          offsetRotate: "auto",
+          offsetDistance: "0%",
+        }}
+      />
+
+      {/* Label following the path */}
+      <text
+        className="fade-in-text"
+        fill="#EFECEA"
+        fontSize="3"
+        fontWeight="bold"
+        fontFamily="'Avenir Next', 'Avenir Next LT Pro', sans-serif"
+        textAnchor="middle"
+        dominantBaseline="middle"
+      >
+        <textPath
+          href={`#${id === 'it-path' || id === 'contact-path' ? reversedId : id}`}
+          startOffset="50%"
+        >
+           <tspan dy="5">{label}</tspan>
+        </textPath>
+      </text>
+    </motion.g>
+  );
+       })}
+
+</svg>
+
+        <div
+        
+          style={{
+            position: 'absolute',
+            top: '2%',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            textAlign: 'center',
+            zIndex: 3,
+            color: '#EFECEA',
+            fontFamily: 'Avenir Next, Avenir Next LT Pro, sans-serif',
+          }}
+        >
+          <h1 style={{ fontSize: '2rem', margin: 0}}>My TransMedics Internship Experience</h1>
         </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+
+        
+      {/* Heart On Top */}
+      <motion.svg
+        animate={controls}
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 35 35"
+        width="600"
+        height="600"
+        preserveAspectRatio="xMidYMid meet"
+        aria-label="Beating anatomical heart"
+        role="img"
+        style={{
+          position: 'absolute',
+          top: '10%',
+          left: '30%',
+          pointerEvents: 'auto', // important for testing
+          zIndex: 2,
+          cursor: 'pointer',
+        }}
+      >
+          < g transform="translate(0, 0) ">
+           {/* Heart paths here */}
+            <path fill="#F4ABBA" d="M11.885 12.863c.117-2.127.233-2.966.1-4.537c-.147-1.44-.397-2.495-.75-3.522s-3.313-.626-2.959 1.138c.353 1.764.593 6.809.451 8.45c1.548-.984 3.158-1.529 3.158-1.529z"></path>
+            <path fill="#BE1931" d="M10.275 13.408c-2.139 1.07-4.278 3.209-4.278 6.417c0 8.735 7.83 10.749 14.248 12.888c6.417 2.139 7.181 1.578 9.283-.053c1.07-2.139.414-13.672-2.795-17.95c-2.314-3.085-11.58-3.741-16.458-1.302z"></path>
+            <path fill="#A0041E" d="M10.275 13.408c-2.139 1.07-4.278 3.209-4.278 6.417c0 8.735 9.83 13.581 13.353 14.415c6.275 1.486 9.108.559 10.177-1.58c-1.783 1.113-9.316-.614-13.309-4.172c-4.187-3.732-6.074-10.238-3.383-13.552c.071-1.036-.118-1.587-.118-2.416c-.886.228-1.713.523-2.442.888z"></path>
+            <path fill="#EA596E" d="M12.836 14.936c-1.413-2.139-2.156-6.05.648-9.015c2.65-2.802 7.77-2.842 10.224.973c2.086 3.243.471 9.722.471 9.722s-4.804-4.98-6.248-2.649c-1.442 2.332-4.872 1.306-5.095.969z"></path>
+            <path fill="#F4ABBA" d="M23.951 17.58c1.156-1.632 1.156-4.168 1.156-4.168s.323-1.489 3.701-.538c.33.093 1.339-1.479.707-1.718c-2.296-.869-3.93-.309-3.93-.309s1.129-.835 2.772-1.033c.652-.079.123-1.37-.525-1.357c-.7.014-1.337.184-2.092.514c-.353.154-.72-.109-.852-.24c-1.988-1.975-4.223-1.689-5.587-1.083c-1.455.647-2.06 2.478-1.165 3.718s.013 2.178-.543 3.169c-.9 1.602 4.831 5.201 6.358 3.045z"></path>
+            <path fill="#EA596E" d="M15.252 6.673c-.744-1.708-1.59-2.473-2.694-3.533s.751-2.384 1.943-1.236s2.296 3.312 2.473 3.842s-1.278 1.945-1.722.927z"></path>
+            <path fill="#EA596E" d="M16.219 4.228c1.134-.593 1.506-2.235 1.594-2.765c.088-.53 1.722-.574 1.545.574s.013 1.919.013 1.919s.87-1.483 1.753-2.234s1.896.443 1.41 1.142s-.579 1.98-.35 2.433c.229.453-2.242 1.022-3.815.713c-1.571-.308-2.15-1.782-2.15-1.782z"></path>
+            <path d="M12.718 10.765l-.031-.001a.5.5 0 0 1-.468-.53c.17-2.752 1.996-4.955 4.651-5.611c3.382-.833 5.454 1.144 5.54 1.229a.5.5 0 0 1-.697.716c-.071-.068-1.778-1.671-4.603-.974c-2.256.558-3.748 2.359-3.893 4.702a.5.5 0 0 1-.499.469zm2.524-6.131a.5.5 0 0 1-.434-.25c-.006-.011-.649-1.11-1.576-1.705a.5.5 0 1 1 .54-.841c1.135.729 1.872 1.994 1.902 2.047a.499.499 0 0 1-.432.749zm2.877-.71a.5.5 0 0 1-.477-.652c.001-.005.174-.555.278-1.513a.5.5 0 1 1 .994.108c-.116 1.07-.312 1.686-.32 1.711a.498.498 0 0 1-.475.346zm2.443.177a.5.5 0 0 1-.423-.765a5.948 5.948 0 0 1 1.407-1.481a.501.501 0 0 1 .588.809a4.951 4.951 0 0 0-1.148 1.205a.502.502 0 0 1-.424.232z" fill="#F4ABBA"></path>
+            <path d="M24.106 14.346a.501.501 0 0 1-.494-.584l.046-.263c.355-2.029.662-3.782-2.016-4.932a.5.5 0 0 1 .394-.919c3.404 1.461 2.962 3.991 2.606 6.023l-.045.259a.498.498 0 0 1-.491.416zm1.698-4.322a.375.375 0 0 1-.16-.714c.049-.023 1.217-.571 2.091-.594c.208.029.379.159.385.365a.376.376 0 0 1-.365.385c-.715.019-1.779.517-1.79.522a.392.392 0 0 1-.161.036zm2.94 2.171a.473.473 0 0 1-.161-.027c-1.156-.395-2.344-.11-2.355-.107a.5.5 0 0 1-.241-.97c.06-.015 1.477-.361 2.919.131a.5.5 0 0 1-.162.973zm-17.843.417a.5.5 0 0 1-.5-.5c0-.043-.009-4.348-.731-6.565a.5.5 0 1 1 .95-.309c.771 2.369.78 6.691.78 6.875a.498.498 0 0 1-.499.499z" fill="#F7DAE2"></path>
+            <g fill="#D84864">
+              <path d="M7.85 25.525a.5.5 0 0 1-.488-.394c-.023-.106-.556-2.621.183-4.262c.661-1.469 1.637-2.033 2.497-2.53c1.024-.592 1.764-1.019 1.911-2.855a.5.5 0 1 1 .997.081c-.189 2.359-1.317 3.011-2.407 3.641c-.801.463-1.557.899-2.085 2.074c-.603 1.34-.122 3.616-.117 3.64a.5.5 0 0 1-.491.605zm12.412 3.253a.5.5 0 0 1-.249-.935c.02-.011 1.878-1.084 2.481-2.424c.627-1.394.331-2.007-.116-2.935c-.413-.856-.927-1.923-.776-3.8a.5.5 0 1 1 .996.081c-.128 1.607.283 2.46.681 3.286c.486 1.009.946 1.961.128 3.779c-.738 1.64-2.811 2.833-2.898 2.883a.507.507 0 0 1-.247.065z"></path>
+              <path d="M19.15 24.175a.501.501 0 0 1-.384-.18c-.39-.467-.476-1.242-.211-1.887c.246-.598.736-.973 1.348-1.031c.838-.08 1.566-.865 1.598-1.335a.498.498 0 0 1 .532-.466a.501.501 0 0 1 .466.532c-.069 1.047-1.285 2.147-2.501 2.265c-.239.022-.413.162-.518.415c-.137.332-.078.708.054.866a.5.5 0 0 1-.384.821zm7.7 4.1a.5.5 0 0 1-.487-.613c.038-.162-.042-.503-.262-.816c-.191-.271-.438-.449-.659-.475c-1.191-.141-2.52-2.244-2.73-3.243a.5.5 0 1 1 .979-.207c.186.879 1.338 2.395 1.869 2.456c.514.061.997.378 1.359.894c.368.522.528 1.142.419 1.616a.503.503 0 0 1-.488.388zm-2.95 4.95a.501.501 0 0 1-.364-.844c.68-.719.27-1.806-.399-2.512c-.617-.651-1.721-2.397-1.198-3.639a.5.5 0 0 1 .922.388c-.268.635.414 1.942 1.002 2.562c1.201 1.267 1.366 2.864.4 3.887a.494.494 0 0 1-.363.158zm-10.35-8.5a.5.5 0 0 1-.47-.669c.249-.69-.172-1.192-1.665-1.989c-.839-.447-1.369-1.213-1.455-2.099c-.074-.767.204-1.507.725-1.931a.499.499 0 1 1 .631.775c-.261.212-.402.628-.36 1.059c.031.322.193.92.93 1.312c.965.516 2.761 1.474 2.135 3.21a.502.502 0 0 1-.471.332zm-1.05 4.55a.51.51 0 0 1-.122-.015c-1.124-.281-1.816-1.544-1.513-2.757c.167-.666-1.047-2-1.555-2.149c-1.384-.402-2.112-1.866-1.9-2.927a.5.5 0 1 1 .98.195c-.094.47.236 1.491 1.2 1.771c.922.27 2.576 2.028 2.245 3.352c-.187.747.265 1.414.787 1.544a.5.5 0 0 1-.122.986zm1.24-10.438c-.556 0-1.116-.291-1.534-.807c-.468-.579-.631-1.28-.425-1.831a.5.5 0 1 1 .937.351c-.078.207.034.565.265.851c.194.239.513.477.842.43a.5.5 0 0 1 .149.989a1.674 1.674 0 0 1-.234.017z"></path>
+              <path d="M12.003 22.208c-.191 0-.385-.04-.577-.136a.5.5 0 0 1 .447-.895c.22.114.631-.112 1.029-.329c.584-.317 1.247-.68 1.941-.385a.5.5 0 0 1-.388.922c-.25-.107-.67.122-1.077.343c-.405.22-.883.48-1.375.48zm14.847 9.817a.499.499 0 0 1-.371-.835c.063-.071.095-.28.025-.528c-.082-.29-.308-.642-.697-.759c-.339-.102-.684-.013-1.049.08c-.452.116-.963.249-1.481-.011a.5.5 0 0 1 .447-.895c.173.085.41.033.785-.063c.436-.111.98-.253 1.585-.068c.661.198 1.174.738 1.373 1.446c.159.57.067 1.119-.246 1.468a.497.497 0 0 1-.371.165zm1.15-12.5a.498.498 0 0 1-.462-.31c-.337-.817-.807-1.357-1.225-1.408c-.34-.037-.623.257-.811.513c-.753 1.027-2.606 1.037-3.481.898a.5.5 0 0 1 .156-.988c.925.146 2.154-.004 2.519-.502c.626-.853 1.281-.496 1.736-.025c.492.51.887 1.372 1.02 2.059a.499.499 0 0 1-.133.367.502.502 0 0 1-.002.009zm-7.68 11.667a.5.5 0 0 1-.433-.746c.311-.546.03-1.494-.559-2.306c-.45-.593-1.228-1.738-1.069-2.789a.5.5 0 1 1 .985.172c-.082.472.45 1.43 1.1 2.119c.962 1.3 1.304 2.964.3 3.914a.502.502 0 0 1-.323.33zm-4.413-8.136a.5.5 0 0 1-.485-.592c.046-.268.027-.875.133-1.516c.179-1.032 1.019-1.597 1.885-2.115c.766-.464 1.685-1.022 2.447-1.768a.5.5 0 1 1 .674.737c-.679.62-1.484 1.135-2.142 1.565c-.63.413-1.154.829-1.394 1.598c-.147.49-.193 1.013-.169 1.399a.501.501 0 0 1-.594.292zm-4.505 1.482a.5.5 0 0 1-.494-.606c.127-.527-.109-1.36-.482-2.126c-.206-.436-.527-.866-.81-1.191c-.422-.486-.721-.797-.685-1.19a.5.5 0 1 1 .991.073c.045.569.397.757.933 1.356c.315.349.736.837.922 1.248c.3.696.373 1.467.223 2.03a.497.497 0 0 1-.598.4z"></path>
+            </g>
+        </g>
+      </motion.svg>
+      <div
+      
+          style={{
+            position: 'absolute',
+            top: '85%',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            textAlign: 'center',
+            zIndex: 3,
+            color: '#EFECEA',
+            fontFamily: 'Avenir Next, Avenir Next LT Pro, sans-serif',
+          }}
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+          <p style={{ fontSize: '1rem', marginTop: '0.25rem', color: '#F9AD81' }}>made by Ysabella Vargas</p>
+        </div>
+    </main>
   );
 }
