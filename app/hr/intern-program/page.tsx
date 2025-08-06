@@ -64,7 +64,7 @@ export default function ProjectPage() {
             lineHeight: '1.6',
           }}
         >
-          Over the course of the summer, I collaborated with the HR team to build and devlop the intern program. This involed coordinating with our weekly guest speakers for our Business Acumen Series, creating and organizing Intern Bonding events, and planning the Intern Appreciation Event. I learned a lot about project management, and was able to devlop my organizational and communication skills. I enjoyed the freedom and creatibity I had in this role, and I was able to provide valuable feedback to improve on the structure of the Intern Program to best support our interns. 
+          Over the course of the summer, I collaborated with the HR team to build and devlop the intern program. This involed coordinating with our weekly guest speakers for our Business Acumen Series, creating and organizing Intern Bonding events, and planning the Intern Appreciation Event. I learned a lot about project management, and was able to devlop my organizational and communication skills. I enjoyed the freedom and creativity I had in this role, and I was able to provide valuable insight to improve on the structure of the Intern Program to best support our interns. 
         </p>
       </div>
     </main>

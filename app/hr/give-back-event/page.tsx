@@ -64,7 +64,7 @@ export default function ProjectPage() {
             lineHeight: '1.6',
           }}
         >
-          This summer I was able to start planning and coordinating the Company Give Back Event for Fall 2025. This event gives the opportunity for employees at the company to volunteer in the community by working with a local non-profit organization to get their hands dirty and plant trees in the local area. I was given the freedom to search for local organizations that would be a good fit for this event and the morals of the company. I appreciate the ability to take control over the beginning stages of this project because I value intentionality and thouughtfullness in choosing small local organization rather than larger organizations that may not have the same impact on the community. I am excited to continue working on this project and see it come to fruition in the Fall.
+          This summer I was able to start planning and coordinating the Company Give Back Event for Fall 2025. This event gives the opportunity for employees at the company to volunteer in the community by working with a local non-profit organization to get their hands dirty and plant trees in the local area. I was given the freedom to search for local organizations that would be a good fit for this event and match the morals of the company. I appreciate the ability to take control over the beginning stages of this project because I value intentionality and thoughtfullness in choosing small local organizations rather than larger organizations that may not have the same impact on the community. I am excited to continue working on this project and see it come to fruition in the Fall.
         </p>
       </div>
     </main>
