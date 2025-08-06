@@ -117,7 +117,6 @@ export default function HRPage() {
         >
           {cellData.map((cell, index) => {
             const isCenter = index === current;
-            const offset = (index - current + cellData.length) % cellData.length;
             const scale = isCenter ? 1.2 : 0.85;
             const opacity = isCenter ? 1 : 0.5;
             const zIndex = isCenter ? 2 : 1;

@@ -64,7 +64,7 @@ export default function ProjectPage() {
             lineHeight: '1.6',
           }}
         >
-        During my internship, I was grateful to work with the IT team to gain insight into the variety of work they do. One of my key contributions was managing the offloading of old IT devices, like iPhones, ensuring all of their information, including most recent user, number and MDM enrollment status, was properly documented. Even though this process was tedious, it was crucial for maintaining accurate records and ensuring that all of the devices were properly accounted for. This experience not only helped me understand the importance of asset management in IT but also allowed me to contribute to the team's efficiency and organization. I was able to learn the deeper intricacies of IT operations and how they support the overall functioning of the organization.
+        During my internship, I was grateful to work with the IT team to gain insight into the variety of work they do. One of my key contributions was managing the offloading of old IT devices, like iPhones, ensuring all of their information, including most recent user, number and MDM enrollment status, was properly documented. Even though this process was tedious, it was crucial for maintaining accurate records and ensuring that all of the devices were properly accounted for. This experience not only helped me understand the importance of asset management in IT but also allowed me to contribute to the whole teams efficiency and organization. I was able to learn the deeper intricacies of IT operations and how they support the overall functioning of the organization.
         </p>
       </div>
     </main>
