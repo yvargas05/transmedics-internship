@@ -18,7 +18,7 @@ const cellData: CellData[] = [
       },
       {
         name: 'Intern Appreciation Event',
-        description: 'Organized a successful event to celebrate interns and donate to a local women\'s shelter.',
+        description: 'Organized a successful event to celebrate interns and donate to a local womens shelter.',
         link: '/hr/appreciation-event',
       },
       {

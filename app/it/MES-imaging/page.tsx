@@ -64,7 +64,7 @@ export default function ProjectPage() {
             lineHeight: '1.6',
           }}
         >
-                For another part of my internship expierence, I was pulled into the MES Worksation Imaging project. This project included assembling Lenovo PC and Monitors and imaging them with MES gold image software. I was able to learn how to use the imaging software to properly set up the workstations with all necessary software and configurations. This experience not only helped me understand the technical aspects of IT operations but also allowed me to contribute to the efficiency of the IT team by ensuring that all workstations were properly set up and ready for use. I was able to gain hands-on experience with hardware and software configurations, which is a valuable skill in the IT field.
+        For another part of my internship expierence, I was pulled into the MES Worksation Imaging project. This project included assembling Lenovo PC and Monitors and imaging them with MES gold image software. I was able to learn how to use the imaging software to properly set up the workstations with all necessary software and configurations. This experience not only helped me understand the technical aspects of IT operations but also allowed me to contribute to the efficiency of the IT team by ensuring that all workstations were properly set up and ready for use. I was able to gain hands-on experience with hardware and software configurations, which is a valuable skill in the IT field.
         </p>
       </div>
     </main>
